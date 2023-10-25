@@ -75,8 +75,9 @@ namespace DDB.ObjectTimer.BL
         // Calculate Time based on a start and end DateTime. Return a formated string "00:00:00"
         public string ElapsedTime (DateTime start, DateTime end)
         {
-            return (end.Hour - start.Hour).ToString("d2") + ":" + (end.Minute - start.Minute).ToString("d2")
-					   + ":" + (end.Second - start.Second).ToString("d2");
+            TimeSpan difference = end.Subtract (start);
+            return difference.Hours.ToString("d2") + ":" + difference.Minutes.ToString("d2")
+					   + ":" + difference.Seconds.ToString("d2");
             
         }
         #region "Methods for Main Timer"
