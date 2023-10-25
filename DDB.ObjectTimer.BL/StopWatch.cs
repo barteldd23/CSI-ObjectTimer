@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace DDB.ObjectTimer.BL
 {
-	public class StartException : Exception
+    #region "Custom Exceptions"
+    public class StartException : Exception
 	{
 		public StartException() : base("Stopwatch is already started.")
 		{ 
@@ -28,10 +29,12 @@ namespace DDB.ObjectTimer.BL
 		}
 
 	}
+    #endregion
 
     public class StopWatch
     {
-		private DateTime startTime;
+        #region "Properties"
+        private DateTime startTime;
 
 		public DateTime StartTime
 		{
@@ -55,6 +58,7 @@ namespace DDB.ObjectTimer.BL
 			set { isRunning = value; }
 		}
 
+        // Properties for splits
         public DateTime Split_1_Start { get; set; }
         public DateTime Split_1_End { get; set; }
         public DateTime Split_2_Start { get; set; }
@@ -65,14 +69,18 @@ namespace DDB.ObjectTimer.BL
         public bool split_2_running { get; set; }
         public bool split_3_running { get; set; }
 
+        #endregion
+
+
+        // Calculate Time based on a start and end DateTime. Return a formated string "00:00:00"
         public string ElapsedTime (DateTime start, DateTime end)
         {
             return (end.Hour - start.Hour).ToString("d2") + ":" + (end.Minute - start.Minute).ToString("d2")
 					   + ":" + (end.Second - start.Second).ToString("d2");
             
         }
-
-		public void StartClock()
+        #region "Methods for Main Timer"
+        public void StartClock()
 		{
 			if (IsRunning)
 			{
@@ -112,6 +120,9 @@ namespace DDB.ObjectTimer.BL
             }
 			
 		}
+        #endregion
+
+        #region "Methods for Splits"
 
         public void StartSplit_1()
         {
@@ -189,5 +200,6 @@ namespace DDB.ObjectTimer.BL
                 this.split_3_running = false;
             }
         }
+        #endregion
     }
 }
